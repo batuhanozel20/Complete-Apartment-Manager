@@ -105,6 +105,7 @@ BHAN Apartment </font></center>
     <li><a href="#" name="tab1">Announcements</a></li>
     <li><a href="#" name="tab2">Occupants</a></li>
     <li><a href="#" name="tab7">Flat</a></li>
+    <li><a href="#" name="tab8">Debths</a></li>
     <li><a href="#" name="tab3">Apartment Budget</a></li>
     <li><a href="#" name="tab4">Staff</a></li>
     <li><a href="#" name="tab5">Registeration</a></li>
@@ -371,6 +372,10 @@ BHAN Apartment </font></center>
        <br>
 
 
+    </div>
+
+    <div id="tab8">
+    <a href="debth.php" class="button">View Who Has Debth></a>
     </div>
 </div>
 
