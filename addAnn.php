@@ -38,7 +38,7 @@ if(isset($_POST['new']) && $_POST['new']==1){
     </br></br><a href='viewAnn.php'>View Added</a>";
 }
 ?>
-//bkjhghgfgf
+
 <meta charset="utf-8">
 <title>Add</title>
 </head>
