@@ -29,7 +29,7 @@ if(isset($_POST['new']) && $_POST['new']==1){
     $annDate =$_REQUEST['annDate'];
     $ann = $_REQUEST['ann'];
   
-//dgfsfgd
+
     
     $add="INSERT INTO announcement
     (`annDate`,`ann`)values('$annDate','$ann')";
