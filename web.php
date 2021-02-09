@@ -4,6 +4,11 @@
 
 ?>
 <head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
   body{ 
@@ -114,37 +119,39 @@ BHAN Apartment </font></center>
 
 <div id="content">
     <div id="tab1">
-    <h1>Announcements</h1> 
-    <?php 
-     $sql = "SELECT * FROM announcement";
-     $result = $conn->query($sql);
-     echo "<table border='1'>
-     <tr>
-     <th>ID</th>
-     <th>DATE</th>
-     <th>ANNOUNCEMENT</th> 
-     </tr>";
-    
- 
-      while($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        echo "<td>" . $row['annID'] . "</td>";
-        echo "<td>" . $row['annDate'] . "</td>";
-        echo "<td>" . $row['ann'] . "</td>";
-        echo "</tr>";
-        }
-        echo "</table>";
-        ?>
-        <br>
-        <br>
-        <div style="text-align:center;">
-       <a href="viewAnn.php" class="button">EDIT</a>
-       </div>
-        
 
-  
-       
+    <table class="table table-bordered w-50 p-3">                     
+     <thead>
+            <tr >
+              <th scope="col">ID</th>
+              <th scope="col">Date</th>
+              <th scope="col">Announcement</th>
+              
+            </tr>
+        </thead>
+        <tbody>
+<?php 
+
+$sql = "SELECT * FROM announcement";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+ 
+    while($row = $result->fetch_assoc()) {
+
+
+        echo '<tr>
+                  <td scope="row">' . $row["annID"]. '</td>
+                  <td>' . $row["annDate"] .'</td>
+                  <td> '.$row["ann"] .'</td>
+                </tr>'; }
+} else {
+    echo "0 results";
+} 
+?>
+       </tbody>
     </div>
+</table>
+   
 
     <div id="tab2">
     <h1>Occupants</h1> 
