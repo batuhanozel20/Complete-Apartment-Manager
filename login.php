@@ -100,7 +100,7 @@ h3 {
         $password = stripslashes($_REQUEST['password']);
         $password = mysqli_real_escape_string($conn, $password);
        
-        $query    = "SELECT * FROM `usertable` WHERE userName='$userName'
+        $query    = "SELECT * FROM `users` WHERE userName='$userName'
                      AND password='" . md5($password) . "'";
         $result = mysqli_query($conn, $query);
         $rows = mysqli_num_rows($result);
