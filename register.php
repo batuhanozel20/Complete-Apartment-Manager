@@ -175,7 +175,7 @@
         $isAdmin = mysqli_real_escape_string($conn, $isAdmin);
         
   
-        $query= "INSERT INTO `usertable` (`userID`, `password`, `Name`, `Surname`, `userName`, `eMail`, `phoneNo`, `doorNumber`,`isAdmin` )
+        $query= "INSERT INTO `users` (`userID`, `password`, `Name`, `Surname`, `userName`, `eMail`, `phoneNo`, `doorNumber`,`isAdmin` )
                      VALUES ('$userID', '" . md5($password) . "', '$Name', '$Surname', '$userName' , '$eMail', '$phoneNo', '$doorNumber','$isAdmin')";
         $result= mysqli_query($conn, $query);
 
