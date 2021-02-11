@@ -47,11 +47,11 @@
 #tabs a {
   position: relative;
   background: #6e6e6e;
-  background-image: linear-gradient(to bottom, #fff, #6e6e6e);
+  background-image: linear-gradient(to bottom, #b3b1b1, #FFB900);
   padding: .7em 3.5em;
   float: left;
   text-decoration: none;
-  color: #444;
+  color: #000000;
   border-radius: 5px 0 0 0;
   box-shadow: 0 2px 2px rgba(0,0,0,.4);
 }
@@ -76,7 +76,7 @@
   bottom: 0;
   width: 1em;
   background: #6e6e6e;
-  background-image: linear-gradient(to bottom, #fff, #6e6e6e);
+  background-image: linear-gradient(to bottom, #ffb300, #ffdd00);
   box-shadow: 2px 2px 2px rgba(0,0,0,.4);
   transform: skew(10deg);
   border-radius: 0 5px 0 0;
@@ -142,6 +142,7 @@ BHAN Apartment </font></center>
 <ul id="tabs">
     <li><a href="#" name="tab1">Announcements</a></li>
     <li><a href="#" name="tab2">Occupants</a></li>
+    <li><a href="#" name="tab8">Moved Out</a></li>
     <li><a href="#" name="tab9">Debth</a></li>
     <li><a href="#" name="tab7">Flat</a></li>
     <li><a href="#" name="tab3">Apartment Budget</a></li>
@@ -192,11 +193,11 @@ if ($result->num_rows > 0) {
 </div> 
 
 <div id="content">
-    <div id="tab2">
-    <h1>Occupants</h1> 
+    <div id="tab2">    <h1>Occupants</h1> 
     <table  class="table table-bordered w-50 p-3 ">                     
      <thead>
             <tr >
+              <th  scope="col">User ID</th>
               <th  scope="col">Name</th>
               <th  scope="col">Surname</th>
               <th  style="width: 2%" scope="col">Door Number</th>
@@ -214,7 +215,8 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
 
                 echo '<tr>
-                  <td scope="row">' . $row["Name"]. '</td>
+                  <td scope="row">' . $row["userID"]. '</td>
+                  <td>' . $row["Surname"] .'</td>
                   <td>' . $row["Surname"] .'</td>
                   <td> '.$row["doorNumber"] .'</td>
                   <td> '.$row["phoneNo"] .'</td>
@@ -233,6 +235,53 @@ if ($result->num_rows > 0) {
        <a class="btn btn-warning" href="login.php">LOGOUT</a>
        </div>
         
+ </div>
+
+ <div id="content">	
+    <div id="tab8">	
+    <h1>Moved Out</h1> 	
+    <table  class="table table-bordered w-50 p-3 ">                     	
+     <thead>	
+            <tr >	
+              <th  scope="col">Name</th>	
+              <th  scope="col">Surname</th>	
+              <th  scope="col">Phone Number</th>	
+              <th  scope="col">E-Mail</th>	
+              <th  scope="col">Debth</th>	
+              <th  scope="col">Move Out Date</th>	
+             </tr>	
+        </thead>	
+        <tbody>	
+<?php 	
+
+$sql = "SELECT * FROM occupants WHERE moveOutDate!=0000-00-00";	
+$result = $conn->query($sql);	
+if ($result->num_rows > 0) {	
+
+
+    while($row = $result->fetch_assoc()) {	
+
+                echo '<tr>	
+                  <td scope="row">' . $row["Name"]. '</td>	
+                  <td>' . $row["Surname"] .'</td>	
+                  <td> '.$row["phoneNo"] .'</td>	
+                  <td> '.$row["eMail"] .'</td>	
+                  <td> '.$row["feeDebth"] .'</td>	
+                  <td> '.$row["moveOutDate"] .'</td>	
+                </tr>'; }	
+} else {	
+    echo "0 results";	
+} 	
+?>	
+       </tbody>	
+    </div>	
+</table>	
+<br>   	
+        <div style="text-align:center;">	
+       <a href="view.php" class="btn btn-warning">EDIT</a>	
+       <a class="btn btn-warning" href="login.php">LOGOUT</a>	
+       </div>	
+
  </div>
  
 
@@ -318,6 +367,46 @@ if ($result->num_rows > 0) {
     </div>
 </table>
 <br>     
+
+<div class="btn-group" style="margin-left: 800px;width:170px">	
+
+  <button class="btn btn-warning" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">	
+    Total	
+  </button>	
+  <div class="dropdown">	
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">	
+    <a class="dropdown-item" href="#"><table  class="table table-bordered w-50 p-3 ">                     	
+     <thead>	
+            <tr >	
+              <th  scope="col">Total</th>	
+
+             </tr>	
+        </thead>	
+        <tbody>	
+<?php 	
+
+$sql = "SELECT SUM(budPrice) FROM budget";	
+$result = $conn->query($sql);	
+if ($result->num_rows > 0) {	
+
+    while($row = $result->fetch_assoc()) {	
+
+                echo '<tr>	
+                  <td scope="row">' . $row["SUM(budPrice)"]. '</td>	
+                	
+                </tr>'; }	
+} else {	
+    echo "0 results";	
+} 	
+?>	
+       </tbody>	
+    </div>	
+</table></a>	
+
+  </div>	
+  </div>
+  </div>
+
         <div style="text-align:center;">
        <a href="viewBudget.php" class="btn btn-warning">EDIT</a>
        <a class="btn btn-warning" href="login.php">LOGOUT</a>
