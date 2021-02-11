@@ -197,7 +197,7 @@ if ($result->num_rows > 0) {
     <table  class="table table-bordered w-50 p-3 ">                     
      <thead>
             <tr >
-              <th  scope="col">User ID</th>
+              <th  scope="col">ID</th>
               <th  scope="col">Name</th>
               <th  scope="col">Surname</th>
               <th  style="width: 2%" scope="col">Door Number</th>
@@ -215,8 +215,8 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
 
                 echo '<tr>
-                  <td scope="row">' . $row["userID"]. '</td>
-                  <td>' . $row["Surname"] .'</td>
+                  <td scope="row">' . $row["occID"]. '</td>
+                  <td>' . $row["Name"] .'</td>
                   <td>' . $row["Surname"] .'</td>
                   <td> '.$row["doorNumber"] .'</td>
                   <td> '.$row["phoneNo"] .'</td>
@@ -406,6 +406,8 @@ if ($result->num_rows > 0) {
   </div>	
   </div>
   </div>
+<br>
+
 
         <div style="text-align:center;">
        <a href="viewBudget.php" class="btn btn-warning">EDIT</a>
@@ -480,7 +482,7 @@ if ($result->num_rows > 0) {
         <tbody>
 <?php 
 
-$sql = "SELECT * FROM usertable";
+$sql = "SELECT * FROM users";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
  
