@@ -131,7 +131,7 @@ h3 {
         <p><a href="register.php" class="btn btn-warning">New Registration</a></p>
         <div style="text-align:center;">
         
- <p><a href="webNormal.php" class="btn btn-warning">User Point of View</a></p>
+ 
       
  <p class="btn btn-warning" onclick="func()">Forgot Password
 
