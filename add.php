@@ -178,8 +178,7 @@ if(isset($_POST['new']) && $_POST['new']==1){
     (`Name`,`Surname`,`userName`,`doorNumber`,`feeDebth`,`phoneNo`,`eMail`,`moveInDate`,`moveOutDate`,`lastPayment`)values
     ('$Name','$Surname','$userName','$doorNumber','$feeDebth','$phoneNo','$eMail','$moveInDate','$moveOutDate','$lastPayment')";
     mysqli_query($conn,$add);
-    $status = "Added Successfully.
-    </br></br><a href='view.php' >View Added</a>";
+    $status = header('Location:view.php');
 }
 ?>
 
