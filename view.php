@@ -61,8 +61,8 @@ th {
 <th><strong>Name</strong></th>
 <th><strong>Surname</strong></th>
 <th><strong>Username</strong></th>
-<th><strong>Door Number</strong></th>
-<th><strong>FeeDebth</strong></th>
+<th><strong>Flat Number</strong></th>
+<th><strong>Fee Debth</strong></th>
 <th><strong>Phone Number</strong></th>
 <th><strong>E-Mail</strong></th>
 <th><strong>Move In Date</strong></th>
