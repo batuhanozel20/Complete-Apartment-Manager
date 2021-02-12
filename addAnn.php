@@ -91,8 +91,7 @@ if(isset($_POST['new']) && $_POST['new']==1){
     $add="INSERT INTO announcement
     (`annDate`,`ann`)values('$annDate','$ann')";
     mysqli_query($conn,$add);
-    $status = "Added Successfully.
-    </br></br><a href='viewAnn.php'>View Added</a>";
+    $status = header('Location:viewAnn.php');
 }
 ?>
 
