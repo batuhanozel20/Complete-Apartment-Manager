@@ -56,7 +56,7 @@
    padding-left: 3px;
 }
 
-.name{
+.Name{
 	 margin-left: 1px;
    font-family: sans-serif;
    font-size: 18px;
@@ -171,12 +171,11 @@
         $doorNumber = stripslashes($_REQUEST['doorNumber']);
         $doorNumber = mysqli_real_escape_string($conn, $doorNumber);
        
-        $isAdmin = stripslashes($_REQUEST['isAdmin']);
-        $isAdmin = mysqli_real_escape_string($conn, $isAdmin);
+      
         
   
-        $query= "INSERT INTO `users` (`userID`, `password`, `Name`, `Surname`, `userName`, `eMail`, `phoneNo`, `doorNumber`,`isAdmin` )
-                     VALUES ('$userID', '" . md5($password) . "', '$Name', '$Surname', '$userName' , '$eMail', '$phoneNo', '$doorNumber','$isAdmin')";
+        $query= "INSERT INTO `users` (`userID`, `password`, `Name`, `Surname`, `userName`, `eMail`, `phoneNo`, `doorNumber` )
+                     VALUES ('$userID', '" . md5($password) . "', '$Name', '$Surname', '$userName' , '$eMail', '$phoneNo', '$doorNumber')";
         $result= mysqli_query($conn, $query);
 
        
@@ -209,10 +208,10 @@
             <label class="pass">Password:</label>
             <input type="password" class="login-input" name="password" placeholder="Password" required/>
             <br>
-            <label class="name">Name: </label>
-            <input type="text" class="login-input" name="Name" placeholder="Name" required />
+            <label  class="Name">Name: </label>
+            <input type="text"  class="login-input" name="Name" placeholder="Name" required />
             <br>
-            <label class="sName">Surname:</label>
+            <label  class="sName">Surname:</label>
             <input type="text" class="login-input" name="Surname" placeholder="Surname" required/>
             <br>
             <label class="uID">User ID:</label>
@@ -242,21 +241,14 @@
               </select>
              <br>
              <br>
-             <form>
-            <label for= "isAdmin" style="color:white;font-family: sans-serif">Is Admin(1 for YES 0 for NO)</label>
-        
-             <select id = "isAdmin" name="isAdmin">
-               <option value = "1">1</option>
-               <option value = "0">0</option>
-               </select>
-               <br>
-             <br> 
+            
+              
              <div style="text-align:center;">
              <input type="submit" value="Register" name="submit" class="btn btn-warning"/>
              <br> <br> 
-             <p><a href="login.php" class="btn btn-warning">Click to Login</a></p>
+             <p><a href="login.php" class="btn btn-warning">Click to Login</a>
              </div>
-    </form>
+   
     </form>
     </form>
        
