@@ -148,6 +148,7 @@ BHAN Apartment </font></center>
     <li><a href="#" name="tab3">Apartment Budget</a></li>
     <li><a href="#" name="tab4">Staff</a></li>
     <li><a href="#" name="tab5">Registeration</a></li>
+    <li><a href="#" name="tab6">Other Years' Apartment Budget</a></li>
 </ul>
 
 <div id="content">
@@ -156,7 +157,6 @@ BHAN Apartment </font></center>
     <table  class="table table-bordered w-50 p-3 ">                     
      <thead>
             <tr >
-              <th scope="col">ID</th>
               <th scope="col">Date</th>
               <th scope="col">Announcement</th>
               
@@ -165,7 +165,7 @@ BHAN Apartment </font></center>
         <tbody>
 <?php 
 
-$sql = "SELECT * FROM announcement";
+$sql = "SELECT * FROM announcement ORDER BY annDate DESC";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
  
@@ -173,8 +173,7 @@ if ($result->num_rows > 0) {
 
 
         echo '<tr>
-                  <td scope="row">' . $row["annID"]. '</td>
-                  <td>' . $row["annDate"] .'</td>
+                  <td scope="row">' . $row["annDate"]. '</td>
                   <td> '.$row["ann"] .'</td>
                 </tr>'; }
 } else {
@@ -200,7 +199,7 @@ if ($result->num_rows > 0) {
               <th  scope="col">ID</th>
               <th  scope="col">Name</th>
               <th  scope="col">Surname</th>
-              <th  style="width: 2%" scope="col">Door Number</th>
+              <th  style="width: 2%" scope="col">Flat Number</th>
               <th  scope="col">Phone Number</th>
               <th  scope="col">E-Mail</th>
              </tr>
@@ -293,7 +292,7 @@ if ($result->num_rows > 0) {
             <tr >
               <th  scope="col">Name</th>
               <th  scope="col">Surname</th>
-              <th  style="width: 2%" scope="col">Door Number</th>
+              <th  style="width: 2%" scope="col">Flat Number</th>
               <th  scope="col">Phone Number</th>
               <th  scope="col">E-Mail</th>
               <th  scope="col">Fee Debth</th>
@@ -348,7 +347,7 @@ if ($result->num_rows > 0) {
         <tbody>
 <?php 
 
-$sql = "SELECT * FROM budget";
+$sql = "SELECT * FROM budget WHERE year=2021  ";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
  
@@ -385,7 +384,7 @@ if ($result->num_rows > 0) {
         <tbody>	
 <?php 	
 
-$sql = "SELECT SUM(budPrice) FROM budget";	
+$sql = "SELECT SUM(budPrice) FROM budget WHERE year=2021";	
 $result = $conn->query($sql);	
 if ($result->num_rows > 0) {	
 
@@ -406,6 +405,7 @@ if ($result->num_rows > 0) {
   </div>	
   </div>
   </div>
+<br>
 <br>
 
 
@@ -474,7 +474,7 @@ if ($result->num_rows > 0) {
               <th  scope="col">Username</th>
               <th  scope="col">E-Mail</th>
               <th  scope="col">Phone Number</th>
-              <th  scope="col">Door Number</th>
+              <th  scope="col">Flat Number</th>
             
               
              </tr>
@@ -518,6 +518,166 @@ if ($result->num_rows > 0) {
    
 
     </div>
+
+    <div id="tab6">
+   
+    <form method="POST" action='' >
+    <div class="btn-group" style="width:500px;height:100px;font-size:large">
+    
+  <button  class="btn btn-warning" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Apartment Budget  of Year 2020
+  </button>
+  <div class="dropdown" >
+  <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#"><table  class="table table-bordered w-50 p-3 ">                     
+     <thead>
+            <tr >
+              <th  scope="col">Utility</th>
+              <th  scope="col">Price</th>
+             </tr>
+        </thead>
+        <tbody>
+<?php 
+
+$sql = "SELECT * FROM budget WHERE year=2020";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+ 
+    while($row = $result->fetch_assoc()) {
+
+                echo '<tr>
+                  <td scope="row">' . $row["budName"]. '</td>
+                  <td>' . $row["budPrice"] .'</td>
+                 
+                </tr>'; }
+} else {
+    echo "0 results";
+} 
+?>
+       </tbody>
+    </div>
+    <div class="btn-group" style="margin-left: 800px;width:170px">	
+
+<button class="btn btn-warning" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">	
+  
+</button>	
+<div class="dropdown">	
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">	
+  <a class="dropdown-item" href="#"><table  class="table table-bordered w-50 p-3 ">                     	
+   <thead>	
+          <tr >	
+            <th  scope="col">Total</th>	
+
+           </tr>	
+      </thead>	
+      <tbody>	
+<?php 	
+
+$sql = "SELECT SUM(budPrice) FROM budget WHERE year=2020";	
+$result = $conn->query($sql);	
+if ($result->num_rows > 0) {	
+
+  while($row = $result->fetch_assoc()) {	
+
+              echo '<tr>	
+                <td scope="row">' . $row["SUM(budPrice)"]. '</td>	
+                
+              </tr>'; }	
+} else {	
+  echo "0 results";	
+} 	
+?>	
+     </tbody>	
+  </div>	
+</table></a>	
+
+</div>	
+</div> 
+</table></a>
+
+  </div>
+  </form>
+  
+  <br>
+    <div class="btn-group" style="width:500px;height:100px;font-size:large">
+    
+  <button class="btn btn-warning" style="width:250px" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Apartment Budget of Year 2019
+  </button>
+  <div class="dropdown">
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#"><table  class="table table-bordered w-50 p-3 ">                     
+     <thead>
+            <tr >
+              <th  scope="col">Utility</th>
+              <th  scope="col">Price</th>
+             </tr>
+        </thead>
+        <tbody>
+<?php 
+
+$sql = "SELECT * FROM budget WHERE year=2019";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+ 
+    while($row = $result->fetch_assoc()) {
+
+                echo '<tr>
+                  <td scope="row">' . $row["budName"]. '</td>
+                  <td>' . $row["budPrice"] .'</td>
+                 
+                </tr>'; }
+} else {
+    echo "0 results";
+} 
+?>
+       </tbody>
+    </div>
+    <div class="btn-group" style="margin-left: 800px;width:170px">	
+
+<button class="btn btn-warning" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">	
+ 
+</button>	
+<div class="dropdown">	
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">	
+  <a class="dropdown-item" href="#"><table  class="table table-bordered w-50 p-3 ">                     	
+   <thead>	
+          <tr >	
+            <th  scope="col">Total</th>	
+
+           </tr>	
+      </thead>	
+      <tbody>	
+<?php 	
+
+$sql = "SELECT SUM(budPrice) FROM budget WHERE year=2019";	
+$result = $conn->query($sql);	
+if ($result->num_rows > 0) {	
+
+  while($row = $result->fetch_assoc()) {	
+
+              echo '<tr>	
+                <td scope="row">' . $row["SUM(budPrice)"]. '</td>	
+                
+              </tr>'; }	
+} else {	
+  echo "0 results";	
+} 	
+?>	
+     </tbody>	
+  </div>	
+</table></a>	
+
+</div>	
+</div> 
+</table></a>
+
+  </div>
+  
+  </div>
+  </form>
+  </div>
+</div>
 
     
     
