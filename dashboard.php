@@ -45,7 +45,7 @@ include("authenticate.php");
    box-shadow: 2px 5px 5px 0px #eee;
      max-width: 500px;
      padding-top: 10px;
-     height: 200px;
+     height: 250px;
      margin-top: 166px;
 }
 </style>
@@ -58,6 +58,7 @@ include("authenticate.php");
 <div class="form">
 <p style="font-size:30px;color:white">Welcome to Dashboard.</p>
 <p><a href="web.php" class="btn btn-warning">Website</a><p>
+<p><a href="webNormal.php" class="btn btn-warning">User Point of View</a></p>
 <p><a href="login.php" class="btn btn-warning">Logout</a></p>
 </div>
 </body>
