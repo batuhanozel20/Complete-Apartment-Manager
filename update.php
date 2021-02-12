@@ -1,3 +1,11 @@
+<?php
+require('db.php');
+include("authenticate.php");
+$occID=$_REQUEST['id'];
+$query = "SELECT * FROM occupants where occID='".$occID."'"; 
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +15,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <meta charset="utf-8"/>
-    <title>Login</title>
-   
+    <title>Registration</title>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
+<style>
  body{
 	 background-image:url(https://s3.envato.com/files/243754334/primag.jpg);
 	 background-repeat:no-repeat;
@@ -20,15 +28,6 @@
 	 overflow:auto;
 	 
 }
-
-h3 {
-    color: white;
-  }
-
-  p {
-    color: white;
-  }
-
 .header{
 	 text-decoration:bold;
 	 text-align : center;
@@ -39,38 +38,129 @@ h3 {
 
 .uName{
 	 margin-left: 1px;
-     font-family: sans-serif;
-     font-size: 18px;
-     color: white;
-     margin-top: 5px;
+   font-family: sans-serif;
+   font-size: 18px;
+   color: white;
+   margin-top: 5px;
+   padding-left: 0px;
+   
+}
+.Name{
+	 margin-left: 1px;
+   font-family: sans-serif;
+   font-size: 18px;
+   color: white;
+   margin-top: 5px;
+   padding-left: 34px;
+   
 }
 
-.pw{
-	 color: white;
+.sName{
+	 margin-left: 1px;
+   font-family: sans-serif;
+   font-size: 18px;
+   color: white;
+   margin-top: 5px;
+   padding-left: 9px;
    
-     margin-top: 9px;
-     font-size: 18px;
-     font-family: sans-serif;
-     margin-left: 3px;
-     margin-top: 9px;
 }
+.mail{
+	 margin-left: 1px;
+   font-family: sans-serif;
+   font-size: 18px;
+   color: white;
+   margin-top: 5px;
+   padding-left: 30px;
+   
+}
+
+.phone{
+	 margin-left: 1px;
+   font-family: sans-serif;
+   font-size: 18px;
+   color: white;
+   margin-top: 5px;
+   padding-left: 1px;
+   
+}
+.dNum{
+	 margin-left: 1px;
+   font-family: sans-serif;
+   font-size: 18px;
+   color: white;
+   margin-top: 5px;
+   padding-right: 28px;
+   
+}
+.feed{
+	 margin-left: 1px;
+   font-family: sans-serif;
+   font-size: 18px;
+   color: white;
+   margin-top: 5px;
+   padding-right: 3px;
+   
+}
+
+.mid{
+	 margin-left: 1px;
+   font-family: sans-serif;
+   font-size: 18px;
+   color: white;
+   margin-top: 5px;
+   padding-left: 13px;
+   padding-right: 5px;
+   
+}
+.mod{
+	 margin-left: 1px;
+   font-family: sans-serif;
+   font-size: 18px;
+   color: white;
+   margin-top: 5px;
+   padding-right: 4px;
+ 
+   
+}
+.lpd{
+	 
+   font-family: sans-serif;
+   font-size: 18px;
+   color: white;
+   margin-top: 5px;
+  
+}
+
 
 .container{
-	font-family:Roboto,sans-serif;
-	  background-image:url(https://image.freepik.com/free-vector/dark-blue-blurred-background_1034-589.jpg) ;
-    
-     border-style: px solid grey;
-     margin: 0 auto;
-     text-align: center;
-     opacity: 0.8;
-     margin-top: 67px;
+	 font-family:Roboto,sans-serif;
+	 background-image:url(https://image.freepik.com/free-vector/dark-blue-blurred-background_1034-589.jpg) ;
+   border-style: px solid grey;
+   margin: 0 auto;
+   text-align: center;
+   opacity: 0.8;
+   margin-top: 67px;
    box-shadow: 2px 5px 5px 0px #eee;
-     max-width: 500px;
-     padding-top: 10px;
-     height: 500px;
-     margin-top: 166px;
+   max-width: 500px;
+   padding-top: 10px;
+   height: 800px;
+   margin-top: 166px;
 }
 
+.contAfter{
+	 font-family:Roboto,sans-serif;
+	 background-image:url(https://image.freepik.com/free-vector/dark-blue-blurred-background_1034-589.jpg) ;
+   border-style: px solid grey;
+   margin: 0 auto;
+   text-align: center;
+   opacity: 0.8;
+   margin-top: 67px;
+   box-shadow: 2px 5px 5px 0px #eee;
+   max-width: 500px;
+   padding-top: 10px;
+   height: 800px;
+   margin-top: 166px;
+}
 .btn{
   width: 170px;
 }
@@ -83,70 +173,120 @@ h3 {
 	transition: background-color 1.15s ease-in-out,border-color 1.15s ease-in-out,box-shadow 1.15s ease-in-out;
 	
 }	 
-</style>    
+</style>
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="css/gui.css" />
 </head>
 <body>
 <div class="container">
+<div class="form">
+<p> 
+<a href="add.php" class="btn btn-warning">Add New</a> 
+<a href="login.php" class="btn btn-warning">Logout</a></p>
 
 <?php
+$status = "";
 
+if(isset($_REQUEST['occID']) )
+{
+    
 
-    require('db.php');
-    session_start();
- 
-    if (isset($_POST['userName'])) {
-        $userName = stripslashes($_REQUEST['userName']);    
-        $userName = mysqli_real_escape_string($conn, $userName);
-        $password = stripslashes($_REQUEST['password']);
-        $password = mysqli_real_escape_string($conn, $password);
-       
-        $query    = "SELECT * FROM `users` WHERE userName='$userName'
-                     AND password='" . md5($password) . "'";
-        $result = mysqli_query($conn, $query);
-        $rows = mysqli_num_rows($result);
-        if ($rows == 1) {
-            $_SESSION['userName'] = $userName;
-            
-            header("Location: dashboard.php");
-        } else {
-            echo "<div class='form'>
-                  <h3>Incorrect Username/password.</h3><br/>
-                  <p class='link'>Click here to <a href='login.php'>Login</a> again.</p>
-                  </div>";
-        }
-    } else {
+    $Name = stripslashes($_REQUEST['Name']);
+    $Name = mysqli_real_escape_string($conn, $Name);
+    
+    $Surname = stripslashes($_REQUEST['Surname']);
+    $Surname = mysqli_real_escape_string($conn, $Surname);
+    
+    $userName = stripslashes($_REQUEST['userName']);
+    $userName = mysqli_real_escape_string($conn, $userName);
+    
+    $doorNumber = stripslashes($_REQUEST['doorNumber']);
+    $doorNumber = mysqli_real_escape_string($conn, $doorNumber);
+    
+    $feeDebth = stripslashes($_REQUEST['feeDebth']);
+    $feeDebth = mysqli_real_escape_string($conn, $feeDebth);
+
+    $phoneNo = stripslashes($_REQUEST['phoneNo']);
+    $phoneNo = mysqli_real_escape_string($conn, $phoneNo);
+  
+    $eMail = stripslashes($_REQUEST['eMail']);
+    $eMail = mysqli_real_escape_string($conn, $eMail); 
+  
+    $moveInDate = stripslashes($_REQUEST['moveInDate']);
+    $moveInDate = mysqli_real_escape_string($conn, $moveInDate);
+
+    $moveOutDate = stripslashes($_REQUEST['moveOutDate']);
+    $moveOutDate = mysqli_real_escape_string($conn, $moveOutDate);
+
+    $lastPayment = stripslashes($_REQUEST['lastPayment']);
+    $lastPayment = mysqli_real_escape_string($conn, $lastPayment);
+
+    
+
+$upd="UPDATE occupants SET `Name`='$Name', `Surname`='$Surname', `userName`='$userName',`doorNumber`='$doorNumber',`feeDebth`='$feeDebth',`phoneNo`='$phoneNo',`eMail`='$eMail',`moveInDate`='$moveInDate',`moveOutDate`='$moveOutDate',`lastPayment`='$lastPayment'
+ where occID='$occID'";
+mysqli_query($conn, $upd);
+$status = "Updated Successfully. </br></br>
+
+<a href='view.php'>Occupants</a>";
+echo '<p style="color: red;">'.$status.'</p>';
+}else {
 ?>
-    <form class="form" method="post" name="login">
-        <h1 class="header">Login</h1>
-        <br>
+<div>
+<h1 class="header">Update an Occupant </h1>
+<form name="form" method="post" action=""> 
 
-        <label class="uName">Username:  </label>
-        <input type="text" name="userName" placeholder="Enter Your Username"/>
-         <br>  
-        <label class="pw">Password:</label>
-        <input type="password"  name="password" placeholder="Enter Your Password"/>
-        <br> <br>
-        <input type="submit" value="Login" name="submit" class="btn btn-warning"/>
-         <br> <br>
-        <p><a href="register.php" class="btn btn-warning">New Registration</a></p>
-        <div style="text-align:center;">
-        
- <p><a href="webNormal.php" class="btn btn-warning">User Point of View</a></p>
-      
- <p class="btn btn-warning" onclick="func()">Forgot Password
+<input type="hidden" name="new" value="1" />
+<input name="occID" type="hidden" value="<?php echo $row['occID'];?>" />
+
+<p><label class="Name"><b>Name:</b>
+<input type="text" name="Name" placeholder="Enter Name"
+ value="<?php echo $row['Name'];?>" /></p>
+
+<p><label class="sName"><b>Surname:</b>
+<input type="text" name="Surname" placeholder="Enter Surname" 
+ value="<?php echo $row['Surname'];?>" /></p>
+
+<p><label class="uName"><b>Username:</b>
+<input type="text" name="userName" placeholder="Enter User Name" 
+ value="<?php echo $row['userName'];?>" /></p>
+
+<p><label class="dNum"><b>Door Number:</b>
+<input type="number" name="doorNumber" placeholder="Enter Door Number" 
+ value="<?php echo $row['doorNumber'];?>" /></p>
+
+<p><label class="feed"><b>Fee Debth:</b>
+<input type="number" name="feeDebth" placeholder="Enter Fee Debth" 
+ value="<?php echo $row['feeDebth'];?>" /></p>
+
+<p><label class="phone"><b>Phone No:</b>
+<input type="number" name="phoneNo" placeholder="Enter Phone Number" 
+ value="<?php echo $row['phoneNo'];?>" /></p>
+
+<p><label class="mail"><b>E-Mail:</b>
+<input type="email" name="eMail" placeholder="Enter E-Mail" 
+ value="<?php echo $row['eMail'];?>" /></p>
+
+<p><label class="mid"><b>Move In Date:</b></label>
+<input type="date" name="moveInDate" placeholder="Enter Move In Date" 
+ value="<?php echo $row['moveInDate'];?>" /></p>
 
 
-  </form>
+<p><label class="mod"><b>Move Out Date:</b></label>
+<input type="date" name="moveOutDate" placeholder="Enter Move Out Date" 
+ value="<?php echo $row['moveOutDate'];?>" /></p>
 
-  <script>
-function func() {
-  alert("Your password has been sent to your E-Mail");
-}
-</script>
+ <p><label class="lpd"><b>Last Payment Date:</b></label>
+ <input type="date" name="lastPayment" placeholder="Enter Last Payment" 
+ value="<?php echo $row['lastPayment'];?>" /></p>
+
+
+
+<p><input name="submitOcc" class="btn btn-warning" type="submit" value="Update" /></p>
+</form>
+<?php } ?>
 </div>
-<?php
-    }
-?>
-
+</div>
 </body>
 </html>
