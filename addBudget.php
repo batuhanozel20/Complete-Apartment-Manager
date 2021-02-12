@@ -84,14 +84,14 @@ if(isset($_POST['new']) && $_POST['new']==1){
     
     $budName =$_REQUEST['budName'];
     $budPrice = $_REQUEST['budPrice'];
+    $year = $_REQUEST['year'];
   
 
     
     $add="INSERT INTO budget
-    (`budName`,`budPrice`)values('$budName','$budPrice')";
+    (`budName`,`budPrice`,`year`)values('$budName','$budPrice','$year')";
     mysqli_query($conn,$add);
-    $status = "Added Successfully.
-    </br></br><a href='viewBudget.php'>View Added</a>";
+    $status = header('Location:viewBudget.php');
 }
 ?>
 
@@ -112,8 +112,11 @@ if(isset($_POST['new']) && $_POST['new']==1){
 <p><label class="Name">Name: </label>
 <input type="text" name="budName" placeholder="Enter Budget Name" required /></p>
 
-<p><p><label class="price">Price: </label>
+<p><label class="price">Price: </label>
 <input type="number" name="budPrice" placeholder="Enter Budget Price" required /></p>
+
+<p><label class="price">Year: </label>
+<input type="number" name="year" placeholder="Enter Year" required /></p>
 
 
 
