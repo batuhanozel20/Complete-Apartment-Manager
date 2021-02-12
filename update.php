@@ -1,124 +1,152 @@
-<?php
-require('db.php');
-include("authenticate.php");
-$userID=$_REQUEST['id'];
-$query = "SELECT * FROM occupants where userID='".$userID."'"; 
-$result = mysqli_query($conn, $query);
-$row = mysqli_fetch_assoc($result);
-?>
 <!DOCTYPE html>
 <html>
 <head>
-<style>
- body{ 
-  background-image:url('b.jpg');
-  background-repeat:no-repeat;
-  background-size: cover;
-}
-.button {
-  background-color: #949292; 
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
-</style>
-<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="css/gui.css" />
+    <meta charset="utf-8"/>
+    <title>Login</title>
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+ body{
+	 background-image:url(https://s3.envato.com/files/243754334/primag.jpg);
+	 background-repeat:no-repeat;
+	 background-size:cover;
+	 width:100%;
+	 height:100vh;
+	 overflow:auto;
+	 
+}
+
+h3 {
+    color: white;
+  }
+
+  p {
+    color: white;
+  }
+
+.header{
+	 text-decoration:bold;
+	 text-align : center;
+	 font-size:30px;
+	 color:#F96;
+	 padding-top:10px;
+}
+
+.uName{
+	 margin-left: 1px;
+     font-family: sans-serif;
+     font-size: 18px;
+     color: white;
+     margin-top: 5px;
+}
+
+.pw{
+	 color: white;
+   
+     margin-top: 9px;
+     font-size: 18px;
+     font-family: sans-serif;
+     margin-left: 3px;
+     margin-top: 9px;
+}
+
+.container{
+	font-family:Roboto,sans-serif;
+	  background-image:url(https://image.freepik.com/free-vector/dark-blue-blurred-background_1034-589.jpg) ;
+    
+     border-style: px solid grey;
+     margin: 0 auto;
+     text-align: center;
+     opacity: 0.8;
+     margin-top: 67px;
+   box-shadow: 2px 5px 5px 0px #eee;
+     max-width: 500px;
+     padding-top: 10px;
+     height: 500px;
+     margin-top: 166px;
+}
+
+.btn{
+  width: 170px;
+}
+  
+.btn.btn-warning:hover {
+    box-shadow: 2px 1px 2px 3px #99ccff;
+	background:#5900a6;
+	color:#fff;
+ 
+	transition: background-color 1.15s ease-in-out,border-color 1.15s ease-in-out,box-shadow 1.15s ease-in-out;
+	
+}	 
+</style>    
 </head>
 <body>
-<div class="form">
-<p> <a href="dashboard.php">Dashboard</a> 
-|<a href="add.php">Add New</a> 
-|<a href="login.php">Logout</a></p>
+<div class="container">
 
 <?php
-$status = "";
 
-if(isset($_REQUEST['userID']) )
-{
-    
 
-    $Name = stripslashes($_REQUEST['Name']);
-    $Name = mysqli_real_escape_string($conn, $Name);
-    
-    $Surname = stripslashes($_REQUEST['Surname']);
-    $Surname = mysqli_real_escape_string($conn, $Surname);
-    
-    $userName = stripslashes($_REQUEST['userName']);
-    $userName = mysqli_real_escape_string($conn, $userName);
-    
-    $doorNumber = stripslashes($_REQUEST['doorNumber']);
-    $doorNumber = mysqli_real_escape_string($conn, $doorNumber);
-    
-    $feeDebth = stripslashes($_REQUEST['feeDebth']);
-    $feeDebth = mysqli_real_escape_string($conn, $feeDebth);
-
-    $phoneNo = stripslashes($_REQUEST['phoneNo']);
-    $phoneNo = mysqli_real_escape_string($conn, $phoneNo);
-  
-    $eMail = stripslashes($_REQUEST['eMail']);
-    $eMail = mysqli_real_escape_string($conn, $eMail); 
-  
-    $moveInDate = stripslashes($_REQUEST['moveInDate']);
-    $moveInDate = mysqli_real_escape_string($conn, $moveInDate);
-
-    $moveOutDate = stripslashes($_REQUEST['moveOutDate']);
-    $moveOutDate = mysqli_real_escape_string($conn, $moveOutDate);
-
-    
-
-$upd="UPDATE occupants SET `Name`='$Name', `Surname`='$Surname', `userName`='$userName',`doorNumber`='$doorNumber',`feeDebth`='$feeDebth',`phoneNo`='$phoneNo',`eMail`='$eMail',`moveInDate`='$moveInDate',`moveOutDate`='$moveOutDate'
- where userID='$userID'";
-mysqli_query($conn, $upd);
-$status = "Updated Successfully. </br></br>
-<a href='view.php'>Occupants</a>";
-echo '<p style="color: red;">'.$status.'</p>';
-}else {
+    require('db.php');
+    session_start();
+ 
+    if (isset($_POST['userName'])) {
+        $userName = stripslashes($_REQUEST['userName']);    
+        $userName = mysqli_real_escape_string($conn, $userName);
+        $password = stripslashes($_REQUEST['password']);
+        $password = mysqli_real_escape_string($conn, $password);
+       
+        $query    = "SELECT * FROM `users` WHERE userName='$userName'
+                     AND password='" . md5($password) . "'";
+        $result = mysqli_query($conn, $query);
+        $rows = mysqli_num_rows($result);
+        if ($rows == 1) {
+            $_SESSION['userName'] = $userName;
+            
+            header("Location: dashboard.php");
+        } else {
+            echo "<div class='form'>
+                  <h3>Incorrect Username/password.</h3><br/>
+                  <p class='link'>Click here to <a href='login.php'>Login</a> again.</p>
+                  </div>";
+        }
+    } else {
 ?>
-<div>
-<form name="form" method="post" action=""> 
+    <form class="form" method="post" name="login">
+        <h1 class="header">Login</h1>
+        <br>
 
-<input type="hidden" name="new" value="1" />
-<input name="userID" type="hidden" value="<?php echo $row['userID'];?>" />
-
-<p><input type="text" name="Name" placeholder="Enter Name" 
- value="<?php echo $row['Name'];?>" /></p>
-
-<p><input type="text" name="Surname" placeholder="Enter Surname" 
- value="<?php echo $row['Surname'];?>" /></p>
-
-<p><input type="text" name="userName" placeholder="Enter User Name" 
- value="<?php echo $row['userName'];?>" /></p>
-
-<p><input type="number" name="doorNumber" placeholder="Enter Door Number" 
- value="<?php echo $row['doorNumber'];?>" /></p>
-
-<p><input type="number" name="feeDebth" placeholder="Enter Fee Debth" 
- value="<?php echo $row['feeDebth'];?>" /></p>
-
-<p><input type="number" name="phoneNo" placeholder="Enter Phone Number" 
- value="<?php echo $row['phoneNo'];?>" /></p>
-
-<p><input type="email" name="eMail" placeholder="Enter E-Mail" 
- value="<?php echo $row['eMail'];?>" /></p>
-
-<p><input type="date" name="moveInDate" placeholder="Enter Move In Date" 
- value="<?php echo $row['moveInDate'];?>" /></p>
-
-<p><input type="date" name="moveOutDate" placeholder="Enter Move Out Date" 
- value="<?php echo $row['moveOutDate'];?>" /></p>
+        <label class="uName">Username:  </label>
+        <input type="text" name="userName" placeholder="Enter Your Username"/>
+         <br>  
+        <label class="pw">Password:</label>
+        <input type="password"  name="password" placeholder="Enter Your Password"/>
+        <br> <br>
+        <input type="submit" value="Login" name="submit" class="btn btn-warning"/>
+         <br> <br>
+        <p><a href="register.php" class="btn btn-warning">New Registration</a></p>
+        <div style="text-align:center;">
+        
+ <p><a href="webNormal.php" class="btn btn-warning">User Point of View</a></p>
+      
+ <p class="btn btn-warning" onclick="func()">Forgot Password
 
 
+  </form>
 
-<p><input name="submitOcc" type="submit" value="Update" /></p>
-</form>
-<?php } ?>
+  <script>
+function func() {
+  alert("Your password has been sent to your E-Mail");
+}
+</script>
 </div>
-</div>
+<?php
+    }
+?>
+
 </body>
 </html>
