@@ -2,7 +2,7 @@
  require('db.php');
 $delID= $_GET['id'];
  
-$result=mysqli_query($conn,"DELETE FROM usertable
+$result=mysqli_query($conn,"DELETE FROM users
 WHERE userID=".$delID);
  
 if($result>0){
