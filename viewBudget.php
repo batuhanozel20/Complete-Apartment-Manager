@@ -5,23 +5,44 @@ include("authenticate.php");
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
- body{ 
-  background-image:url('b.jpg');
-  background-repeat:no-repeat;
-  background-size: cover;
+ body{
+	 background-image:url(https://s3.envato.com/files/243754334/primag.jpg);
+	 background-repeat:no-repeat;
+	 background-size:cover;
+	 width:100%;
+	 height:100vh;
+	 overflow:auto;
+	 
 }
-.button {
-  background-color: #949292; 
-  border: none;
-  color: white;
-  padding: 15px 50px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+th {
+    background-color:#FFB900;
+    
+} 
+
+  h2{
+   color:white 
   }
+
+  .btn.btn-warning:hover {
+    box-shadow: 2px 1px 2px 3px #99ccff;
+	background:#5900a6;
+	color:#fff;
+ 
+	transition: background-color 1.15s ease-in-out,border-color 1.15s ease-in-out,box-shadow 1.15s ease-in-out;
+	
+}	 
+
+.btn{
+  width: 163px;
+  background-color: orange;
+  color:black;
+}
   
 
 </style>
@@ -37,19 +58,9 @@ include("authenticate.php");
 <thead>
 <tr>
 <th><strong>ID</strong></th>
-<th><strong>Garden Expense</strong></th>
-<th><strong>Electric Bİll</strong></th>
-<th><strong>Generator Fuel</strong></th>
-<th><strong>Generator Maintance</strong></th>
-<th><strong>Water Bill</strong></th>
-<th><strong>Staff Salary</strong></th>
-<th><strong>Staff Insurance</strong></th>
-<th><strong>Staff Brief</strong></th>
-<th><strong>Security Expense</strong></th>
-<th><strong>Cleaning Expense</strong></th>
-<th><strong>Pool Expense</strong></th>
-<th><strong>Central Heating Expense</strong></th>
-<th><strong>Other Expenses</strong></th>
+<th><strong>Name</strong></th>
+<th><strong>Price</strong></th>
+
 
 </tr>
 </thead>
@@ -57,36 +68,28 @@ include("authenticate.php");
 
 <?php
 $count=1;
-$sel_query="SELECT * FROM budget ORDER BY id DESC;";
+$sel_query="SELECT * FROM budget ORDER BY budID ASC;";
 $result = mysqli_query($conn,$sel_query);
 while($row = mysqli_fetch_assoc($result)) { ?>
 <tr><td align="center"><?php echo $count; ?></td>
-<td align="center"><?php echo $row["GardenExpense"]; ?></td>
-<td align="center"><?php echo $row["ElectricBill"]; ?></td>
-<td align="center"><?php echo $row["GeneratorFuel"]; ?></td>
-<td align="center"><?php echo $row["GeneratorMaintance"]; ?></td>
-<td align="center"><?php echo $row["WaterBill"]; ?></td>
-<td align="center"><?php echo $row["StaffSalary"]; ?></td>
-<td align="center"><?php echo $row["StaffInsurance"]; ?></td>
-<td align="center"><?php echo $row["StaffBrief"]; ?></td>
-<td align="center"><?php echo $row["SecurityExpense"]; ?></td>
-<td align="center"><?php echo $row["CleaningExpense"]; ?></td>
-<td align="center"><?php echo $row["PoolExpense"]; ?></td>
-<td align="center"><?php echo $row["CentralHeatingExpense"]; ?></td>
-<td align="center"><?php echo $row["OtherExpenses"]; ?></td>
+<td align="center"><?php echo $row["budName"]; ?></td>
+<td align="center"><?php echo $row["budPrice"]; ?></td>
 
 <td align="center">
-<a href="updateBudget.php?id=<?php echo $row["id"]; ?>">Edit</a>
+<a href="deleteBudget.php?id=<?php echo $row["budID"]; ?>">Delete</a>
 </td>
 
 </tr>
 <?php $count++; } ?>
 </tbody>
-</table>
-
+</table>>
+<br>
 <div style="text-align:center;">
-<p><a href="web.php" class="button">Website</a> 
- <a href="login.php" class="button">Logout</a></p>
+<p><a href="web.php" class="btn btn-warning">Website</a> 
+<a href="addBudget.php" class="btn btn-warning">Add New</a>
+ <a href="login.php" class="btn btn-warning">Logout</a>
+ 
+</p>
 </div>
 </div>
 </body>
