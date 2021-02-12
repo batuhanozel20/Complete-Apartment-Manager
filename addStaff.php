@@ -125,8 +125,7 @@ if(isset($_POST['new']) && $_POST['new']==1){
     (`Name`,`Surname`,`Role`,`phoneNo`,`Salary`)values
     ('$Name','$Surname','$Role','$phoneNo','$Salary')";
     mysqli_query($conn,$add);
-    $status = "Added Successfully.
-    </br></br><a href='viewStaff.php'>View Added</a>";
+    $status = header('Location:viewStaff.php');
 }
 ?>
 
