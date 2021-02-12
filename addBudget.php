@@ -1,24 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="a.css"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <meta charset="utf-8"/>
+    <title>Registration</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
- body{ 
-  background-image:url('b.jpg');
-  background-repeat:no-repeat;
-  background-size: cover;
+ body{
+	 background-image:url(https://s3.envato.com/files/243754334/primag.jpg);
+	 background-repeat:no-repeat;
+	 background-size:cover;
+	 width:100%;
+	 height:100vh;
+	 overflow:auto;
+	 
 }
-.button {
-  background-color: #949292; 
-  border: none;
+p {
   color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
 }
+.Name{
+	 margin-left: 1px;
+   font-family: sans-serif;
+   font-size: 18px;
+   color: white;
+   margin-top: 5px;
+   padding-left: 0px;
+   
+}
+
+.price{
+	 margin-left: 1px;
+   font-family: sans-serif;
+   font-size: 18px;
+   color: white;
+   margin-top: 5px;
+   padding-left: 3px;
+}
+
+.header{
+	 text-decoration:bold;
+	 text-align : center;
+	 font-size:30px;
+	 color:#F96;
+	 padding-top:10px;
+}
+.container{
+	 font-family:Roboto,sans-serif;
+	 background-image:url(https://image.freepik.com/free-vector/dark-blue-blurred-background_1034-589.jpg) ;
+   border-style: px solid grey;
+   margin: 0 auto;
+   text-align: center;
+   opacity: 0.8;
+   margin-top: 67px;
+   box-shadow: 2px 5px 5px 0px #eee;
+   max-width: 500px;
+   padding-top: 10px;
+   height: 380px;
+   margin-top: 166px;
+}
+.btn{
+  width: 170px;
+}
+  
+.btn.btn-warning:hover {
+    box-shadow: 2px 1px 2px 3px #99ccff;
+	background:#5900a6;
+	color:#fff;
+ 
+	transition: background-color 1.15s ease-in-out,border-color 1.15s ease-in-out,box-shadow 1.15s ease-in-out;
+	
+}	 
 </style>
 <?php
 require('db.php');
@@ -26,23 +82,13 @@ include("authenticate.php");
 $status = "";
 if(isset($_POST['new']) && $_POST['new']==1){
     
-    $GardenExpense =$_REQUEST['Garden Expense'];
-    $ElectricBİll = $_REQUEST['Electric Bill'];
-    $GeneratorFuel = $_REQUEST['Generator Fuel'];
-    $WaterBill = $_REQUEST['Water Bill'];
-    $StaffSalary = $_REQUEST['Staff Salary'];
-    $StaffInsurance = $_REQUEST['Staff Insurance'];
-    $StaffBrief = $_REQUEST['Staff Brief'];
-    $SecurityExpense = $_REQUEST['Security Expense'];
-    $CleaningExpense = $_REQUEST['Cleaning Expense'];
-    $PoolExpense = $_REQUEST['Pool Expense'];
-    $CentralHeatingExpense = $_REQUEST['Central Heating Expense'];
-    $OtherExpenses = $_REQUEST['Other Expenses'];
+    $budName =$_REQUEST['budName'];
+    $budPrice = $_REQUEST['budPrice'];
+  
 
     
     $add="INSERT INTO budget
-    (`Garden Expense`,`Electric Bill`,`Generator Fuel`,`Water Bill`,`Staff Salary`,`Staff Insurance`,`Staff Brief`,`Security Expense`,`Cleaning Expense`,`Pool Expense`,`Central Heating Expense`,`Other Expenses`)values
-    ('$GardenExpense','$ElectricBİll','$GeneratorFuel','$WaterBill','$StaffSalary','$StaffInsurance','$StaffBrief','$SecurityExpense','$CleaningExpense','$PoolExpense','$CentralHeatingExpense','$OtherExpenses')";
+    (`budName`,`budPrice`)values('$budName','$budPrice')";
     mysqli_query($conn,$add);
     $status = "Added Successfully.
     </br></br><a href='viewBudget.php'>View Added</a>";
@@ -53,26 +99,25 @@ if(isset($_POST['new']) && $_POST['new']==1){
 <title>Add</title>
 </head>
 <body>
+<div class="container">
 <div class="form">
 <p>
- <a href="view.php">View </a> 
-| <a href="login.php">Logout</a></p>
+ <a href="viewBudget.php" class="btn btn-warning">View </a> 
+<a href="login.php" class="btn btn-warning">Logout</a></p>
 <div>
-<h1>Add New </h1>
+<h1 class="header">Add New Utlility</h1>
 <form name="form" method="post" action=""> 
 <input type="hidden" name="new" value="1" />
-<p><input type="number" name="Name" placeholder="Enter Name" required /></p>
-<p><input type="text" name="Surname" placeholder="Enter Surname" required /></p>
-<p><input type="text" name="userName" placeholder="Enter User Name" required /></p>
-<p><input type="number" name="doorNumber" placeholder="Enter Door Number" required /></p>
-<p><input type="number" name="feeDebth" placeholder="Enter Fee Debth" ></p>
-<p><input type="number" name="phoneNo" placeholder="Enter Phone No" ></p>
-<p><input type="email" name="eMail" placeholder="Enter E-Mail" ></p>
-<p><input type="date" name="moveInDate" placeholder="Enter Move In Date" required /></p>
-<p><input type="date" name="moveOutDate" placeholder="Enter Move Out Date" ></p>
+
+<p><label class="Name">Name: </label>
+<input type="text" name="budName" placeholder="Enter Budget Name" required /></p>
+
+<p><p><label class="price">Price: </label>
+<input type="number" name="budPrice" placeholder="Enter Budget Price" required /></p>
 
 
-<p><input name="submit" type="submit" value="Submit" /></p>
+
+<p><input name="submit" type="submit" value="Submit" class="btn btn-warning" /></p>
 </form>
 <p style="color:#FF0000;"><?php echo $status; ?></p>
 </div>
