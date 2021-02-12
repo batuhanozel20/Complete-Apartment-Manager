@@ -68,7 +68,7 @@ th {
 
 <?php
 $count=1;
-$sel_query="SELECT * FROM budget ORDER BY budID ASC;";
+$sel_query="SELECT * FROM budget WHERE year=2021 ORDER BY budID ASC;";
 $result = mysqli_query($conn,$sel_query);
 while($row = mysqli_fetch_assoc($result)) { ?>
 <tr><td align="center"><?php echo $count; ?></td>
